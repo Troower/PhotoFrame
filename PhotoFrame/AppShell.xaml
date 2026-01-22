@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="PhotoFrame.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PhotoFrame"
+    Title="PhotoFrame" Shell.NavBarIsVisible="False">
+    <TabBar>
+        <Tab Title="Главная"
+            Icon="home_sound_in_outline.png">
+            <ShellContent
+                Title="Home"
+                ContentTemplate="{DataTemplate local:MainPage}"
+                    Route="MainPage" />
+        </Tab>
+        <Tab Title="Настройки"
+             Icon="cog_outline.png">
+            <ShellContent ContentTemplate="{DataTemplate local:SettingsPage}" />
+        </Tab>
+    </TabBar>
+  
+
+</Shell>
