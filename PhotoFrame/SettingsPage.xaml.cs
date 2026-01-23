@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace PhotoFrame;
 
 public partial class SettingsPage : ContentPage
@@ -6,4 +8,5 @@ public partial class SettingsPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
 }
