@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace PhotoFrame.ViewModel
@@ -46,12 +47,25 @@ namespace PhotoFrame.ViewModel
 
         private async void ClickUpdateIP()
         {
-             IpAddress = await Application.Current.MainPage.DisplayPromptAsync("Изменение ", "Введите ip адресс сервера ", placeholder: "192.168.0.1", maxLength: 11);
+            string ip = await Application.Current.MainPage.DisplayPromptAsync("Изменение ", "Введите ip адресс сервера ", placeholder: "192.168.0.1", maxLength: 15);
+            Regex reg = new("\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b");
+            if (!String.IsNullOrEmpty(ip) && reg.IsMatch(ip))
+            {
+                IpAddress = ip;
+                MainViewModel.client.BaseAddress = new Uri($"http://{ip}/");
+            }
+            else
+                await Application.Current.MainPage.DisplayAlertAsync("Ошибка", "Некоректно ввведен ip!", "Закрыть");
         }
 
         private async void ClickUpdateAPIKey()
         {
-             ApiKey = await Application.Current.MainPage.DisplayPromptAsync("Изменение ", "Введите API ключ", placeholder: "Ключ из личного кабинета GigaChatApi");
+            string apiKey = await Application.Current.MainPage.DisplayPromptAsync("Изменение ", "Введите API ключ", placeholder: "Ключ из личного кабинета GigaChatApi");
+            if (!String.IsNullOrWhiteSpace(apiKey))
+                ApiKey = apiKey;
+            else
+                await Application.Current.MainPage.DisplayAlertAsync("Ошибка", "Некоректно ввведен api key!", "Закрыть");
+
         }
 
 

@@ -27,7 +27,6 @@
                 </HorizontalStackLayout>
                 <Button Margin="10" Padding="10" Text="Изменить адресс" Background="AliceBlue" Command="{Binding ChangeIp}"  />
             </VerticalStackLayout>
-
         </Border>
 
         <Border Stroke="Transparent" Margin="10" Padding="10">

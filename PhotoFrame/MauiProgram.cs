@@ -14,7 +14,7 @@ namespace PhotoFrame
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
+            Routing.RegisterRoute("/Settings", typeof(SettingsPage));
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
