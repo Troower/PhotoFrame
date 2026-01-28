@@ -47,24 +47,37 @@ namespace PhotoFrame.ViewModel
 
         private async void ClickUpdateIP()
         {
-            string ip = await Application.Current.MainPage.DisplayPromptAsync("Изменение ", "Введите ip адресс сервера ", placeholder: "192.168.0.1", maxLength: 15);
-            Regex reg = new("\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b");
-            if (!String.IsNullOrEmpty(ip) && reg.IsMatch(ip))
+            try
             {
-                IpAddress = ip;
-                MainViewModel.client.BaseAddress = new Uri($"http://{ip}/");
+                string ip = await Application.Current.MainPage.DisplayPromptAsync("Изменение ", "Введите ip адресс сервера ", placeholder: "192.168.0.1", maxLength: 15);
+                Regex reg = new("\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b");
+                if (!String.IsNullOrEmpty(ip) && reg.IsMatch(ip))
+                {
+                    IpAddress = ip;
+                    Application.Current.MainPage?.DisplayAlertAsync("Успех", "Ip адрес успешно изменен, перезапустите приложение для продолжения работы по новому адрессу!", "Закрыть");
+                }
+                else
+                    await Application.Current.MainPage.DisplayAlertAsync("Ошибка", "Некоректно ввведен ip!", "Закрыть");
             }
-            else
-                await Application.Current.MainPage.DisplayAlertAsync("Ошибка", "Некоректно ввведен ip!", "Закрыть");
+            catch (Exception ex)
+            {
+                Application.Current?.MainPage?.DisplayAlertAsync("Ошибка", ex.Message, "Закрыть");
+            }
         }
 
         private async void ClickUpdateAPIKey()
         {
+            try { 
             string apiKey = await Application.Current.MainPage.DisplayPromptAsync("Изменение ", "Введите API ключ", placeholder: "Ключ из личного кабинета GigaChatApi");
             if (!String.IsNullOrWhiteSpace(apiKey))
                 ApiKey = apiKey;
             else
                 await Application.Current.MainPage.DisplayAlertAsync("Ошибка", "Некоректно ввведен api key!", "Закрыть");
+            }
+            catch (Exception ex)
+            {
+                Application.Current?.MainPage?.DisplayAlertAsync("Ошибка", ex.Message, "Закрыть");
+            }
 
         }
 

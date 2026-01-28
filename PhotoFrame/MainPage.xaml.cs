@@ -15,6 +15,5 @@ namespace PhotoFrame
             base.OnAppearing();
             VM.OnPropertyChanged(nameof(VM.Settings));
         }
-
     }
 }
